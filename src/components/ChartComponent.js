@@ -26,13 +26,13 @@ function ChartComponent(props) {
 					data={data}
 					x="exercise"
 					y="difficultyRating"
-					style={{ data: { fill: "yellow", } }}
+					style={{ data: { fill: "#FF4A1C", } }}
 				/>
 				<VictoryBar
 					data={data}
 					x="exercise"
 					y="enjoyedRating"
-					style={{ data: { fill: "tomato" } }}
+					style={{ data: { fill: "#3E78B2" } }}
 				/>
 			</VictoryGroup>
 			<VictoryAxis

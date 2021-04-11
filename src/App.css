@@ -30,7 +30,8 @@ a {
 
 .main-nav {
   display: flex;;
-  background-color: yellow;
+  background-color: #3E78B2;
+
 }
 
 .main-nav--list {
@@ -41,8 +42,8 @@ a {
   list-style: none;
 }
 
-.main-nav--list--item {
-
+.main-nav--list--item a{
+  color: #E3E6F2;
   margin-right: 30px;
 }
 

@@ -15,7 +15,7 @@ function Studentlist(props) {
 		<ul className="studentList">
 			{names.map(name => {
 				return (<li>
-					<Link to={`${url}/${name.toLowerCase()}`}>{name}</Link>
+					<Link to={`${url}/${name.toLowerCase()}`} key={name}>{name}</Link>
 				</li>)
 			})}
 		</ul>

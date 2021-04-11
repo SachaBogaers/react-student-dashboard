@@ -10,11 +10,13 @@ import {
 import DashboardContainer from './DashboardContainer'
 import AboutPage from './AboutPage'
 import AllStudents from './AllStudents'
+import { onlyUnique, getNames } from './utils'
 
 export default function App() {
 
 	// Getting student data and setting it to the state
 	const [data, setData] = useState([])
+	const [selectedStudents, setSelectedStudents] = useState([])
 
 	const getData = () => {
 		Papa.parse(rawStudentData, {
@@ -25,6 +27,9 @@ export default function App() {
 			skipEmptyLines: true,
 			complete: function (results) {
 				setData(results.data)
+				const names = getNames(results.data)
+				const initialSelectedStudents = initializeSelectedStudents(names)
+				setSelectedStudents(initialSelectedStudents)
 			}
 		})
 	}
@@ -33,7 +38,34 @@ export default function App() {
 		getData();
 	}, [])
 
+	const initializeSelectedStudents = (names) => {
+		let i = 1
+		const selectedStudents = []
+		names.forEach(name => {
+			const student = {
+				id: i,
+				name: name,
+				isChecked: true
+			}
+			selectedStudents.push(student)
+			i++;
+		})
+		return selectedStudents
+	}
 
+	const handleCheckedStudent = (event) => {
+		// Find the student that was checked or unchecked in state and get index
+		const checkedStudent = selectedStudents.find(student => student.name === event.target.value)
+		const checkedStudentIndex = selectedStudents.indexOf(checkedStudent)
+		// Make copy of selected student object, as to not change state directly
+		const copyCheckedStudent = { ...checkedStudent }
+		// Change checked value of selected student
+		copyCheckedStudent.isChecked = !copyCheckedStudent.isChecked
+		// Make a new array of selected students, insert changed student object, set state with new array of selected students
+		const newCheckedStudents = [...selectedStudents]
+		newCheckedStudents[checkedStudentIndex] = copyCheckedStudent
+		setSelectedStudents(newCheckedStudents)
+	}
 
 	return (
 		<Router>
@@ -62,7 +94,7 @@ export default function App() {
 						<AboutPage />
 					</Route>
 					<Route path="/">
-						<DashboardContainer data={data} />
+						<DashboardContainer data={data} selectedStudents={selectedStudents} handleCheckedStudent={handleCheckedStudent} />
 					</Route>
 				</Switch>
 			</div>
