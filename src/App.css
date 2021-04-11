@@ -2,6 +2,14 @@
   text-align: center;
 }
 
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.router {
+  text-align: center;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -18,4 +26,44 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.main-nav {
+  display: flex;;
+  background-color: yellow;
+}
+
+.main-nav--list {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 5px;
+  list-style: none;
+}
+
+.main-nav--list--item {
+
+  margin-right: 30px;
+}
+
+
+
+.DashboardContainer {
+  text-align: center;
+}
+
+/* .VictoryChart {
+  margin-left: 100px
+} */
+
+
+.studentList {
+  display: flex;
+  list-style: none;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.studentList li {
+  padding: 10px;
 }
