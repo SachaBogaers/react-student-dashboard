@@ -3,19 +3,19 @@ import React from 'react'
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryLabel, VictoryGroup, VictoryTooltip } from 'victory';
 import ChartComponent from './ChartComponent';
 import { onlyUnique, getNames } from './utils'
-import Checkbox from './Checkbox'
+import StudentCheckbox from './StudentCheckbox'
 
 function DashboardContainer(props) {
 	const data = props.data
 	let chartData = data
 	const exercises = data.map(item => item.exercise).filter(onlyUnique)
 	const names = getNames(data)
-	const selectedStudents = props.selectedStudents
-	console.log("dashbaord", selectedStudents)
+	const students = props.students
+	console.log("dashbaord", students)
 
 
 	const getAverageData = () => {
-		const onlySelectedStudents = selectedStudents.filter(student => {
+		const onlySelectedStudents = students.filter(student => {
 			if (student.isChecked) {
 				return student.name
 			}
@@ -54,13 +54,13 @@ function DashboardContainer(props) {
 	return (
 		<div className="DashboardContainer">
 			<h1>Average ratings</h1>
-			<ChartComponent data={chartData} />
 			<form>
-				<h1>Students</h1>
-				{selectedStudents.map(student => {
-					return (<Checkbox {...student} handleCheckedStudent={props.handleCheckedStudent} />)
+				{students.map(student => {
+					return (<StudentCheckbox {...student} handleCheckedStudent={props.handleCheckedStudent} />)
 				})}
 			</form>
+			<ChartComponent data={chartData} />
+
 		</div>
 	);
 

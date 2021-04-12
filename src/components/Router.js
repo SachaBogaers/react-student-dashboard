@@ -16,7 +16,7 @@ export default function App() {
 
 	// Getting student data and setting it to the state
 	const [data, setData] = useState([])
-	const [selectedStudents, setSelectedStudents] = useState([])
+	const [students, setStudents] = useState([])
 
 	const getData = () => {
 		Papa.parse(rawStudentData, {
@@ -29,7 +29,7 @@ export default function App() {
 				setData(results.data)
 				const names = getNames(results.data)
 				const initialSelectedStudents = initializeSelectedStudents(names)
-				setSelectedStudents(initialSelectedStudents)
+				setStudents(initialSelectedStudents)
 			}
 		})
 	}
@@ -42,10 +42,12 @@ export default function App() {
 		let i = 1
 		const selectedStudents = []
 		names.forEach(name => {
+			const image = `https://robohash.org/${name}?set=set5`
 			const student = {
 				id: i,
 				name: name,
-				isChecked: true
+				isChecked: true,
+				image: image
 			}
 			selectedStudents.push(student)
 			i++;
@@ -53,18 +55,19 @@ export default function App() {
 		return selectedStudents
 	}
 
+
 	const handleCheckedStudent = (event) => {
 		// Find the student that was checked or unchecked in state and get index
-		const checkedStudent = selectedStudents.find(student => student.name === event.target.value)
-		const checkedStudentIndex = selectedStudents.indexOf(checkedStudent)
+		const checkedStudent = students.find(student => student.name === event.target.value)
+		const checkedStudentIndex = students.indexOf(checkedStudent)
 		// Make copy of selected student object, as to not change state directly
 		const copyCheckedStudent = { ...checkedStudent }
 		// Change checked value of selected student
 		copyCheckedStudent.isChecked = !copyCheckedStudent.isChecked
 		// Make a new array of selected students, insert changed student object, set state with new array of selected students
-		const newCheckedStudents = [...selectedStudents]
+		const newCheckedStudents = [...students]
 		newCheckedStudents[checkedStudentIndex] = copyCheckedStudent
-		setSelectedStudents(newCheckedStudents)
+		setStudents(newCheckedStudents)
 	}
 
 	return (
@@ -88,13 +91,13 @@ export default function App() {
             renders the first one that matches the current URL. */}
 				<Switch>
 					<Route path="/students">
-						<AllStudents data={data} />
+						<AllStudents data={data} students={students} />
 					</Route>
 					<Route path="/about">
 						<AboutPage />
 					</Route>
 					<Route path="/">
-						<DashboardContainer data={data} selectedStudents={selectedStudents} handleCheckedStudent={handleCheckedStudent} />
+						<DashboardContainer data={data} students={students} handleCheckedStudent={handleCheckedStudent} />
 					</Route>
 				</Switch>
 			</div>

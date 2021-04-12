@@ -29,6 +29,7 @@ function StudentsPage(props) {
 					<Student
 						name={url}
 						data={data}
+						students={props.students}
 					/>
 				</Route>
 			</Switch>

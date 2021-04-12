@@ -1,7 +1,7 @@
 
 import React from 'react'
 
-export const CheckBox = props => {
+export const StudentCheckBox = props => {
 	return (
 		<span>
 			<input key={props.id} onChange={props.handleCheckedStudent} type="checkbox" checked={props.isChecked} value={props.name} /> {props.name}
@@ -9,4 +9,4 @@ export const CheckBox = props => {
 	)
 }
 
-export default CheckBox
+export default StudentCheckBox
