@@ -1,9 +1,12 @@
 
 import React from 'react'
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryLabel, VictoryGroup, VictoryTooltip } from 'victory';
-import ChartComponent from './ChartComponent';
+import BarChart from './BarChart';
+import LineChart from './LineChart'
 import { onlyUnique, getNames } from './utils'
 import StudentCheckbox from './StudentCheckbox'
+import Checkbox from './Checkbox'
+import Exercise from './Exercise'
 
 function DashboardContainer(props) {
 	const data = props.data
@@ -11,8 +14,6 @@ function DashboardContainer(props) {
 	const exercises = data.map(item => item.exercise).filter(onlyUnique)
 	const names = getNames(data)
 	const students = props.students
-	console.log("dashbaord", students)
-
 
 	const getAverageData = () => {
 		const onlySelectedStudents = students.filter(student => {
@@ -47,7 +48,6 @@ function DashboardContainer(props) {
 	// Checkbox on change = handleSelectedStudentChange => that function should be used in the parent (router) to change the state
 
 	const averageData = getAverageData();
-	console.log("average data", averageData)
 	chartData = averageData
 
 
@@ -59,8 +59,15 @@ function DashboardContainer(props) {
 					return (<StudentCheckbox {...student} handleCheckedStudent={props.handleCheckedStudent} />)
 				})}
 			</form>
-			<ChartComponent data={chartData} />
-
+			<Checkbox checked={props.sortingCheck} onChange={props.handleSortingCheck} /> Sort chart
+			<form onChange={props.handleSelectedChartTypeChange}>
+				<input type="radio" id="barChart" name="chart" value="bar" checked={props.selectedChartType === "bar"} />
+				<label for="barChart">Bar chart</label>
+				<input type="radio" id="lineChart" name="chart" value="line" checked={props.selectedChartType === "line"} />
+				<label for="lineChart">Line chart</label>
+			</form>
+			{props.selectedChartType === "bar" && <BarChart data={chartData} sortingCheck={props.sortingCheck} />}
+			{props.selectedChartType === "line" && <LineChart data={chartData} sortingCheck={props.sortingCheck} />}
 		</div>
 	);
 
