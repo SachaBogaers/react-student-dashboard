@@ -10,13 +10,19 @@ import {
 import DashboardContainer from './DashboardContainer'
 import AboutPage from './AboutPage'
 import AllStudents from './AllStudents'
-import { onlyUnique, getNames } from './utils'
+import { onlyUnique, getNames, pickRandom, generateEmail, generatePhoneNumber, randomNumber } from './utils'
+import lastNames from './lastNames.json'
+import { Selection } from 'victory';
+import AllExercises from './AllExercises'
 
 export default function App() {
 
 	// Getting student data and setting it to the state
 	const [data, setData] = useState([])
 	const [students, setStudents] = useState([])
+	const [selectedChartType, setSelectedChartType] = useState("bar")
+	const [sortingCheck, setSortingCheck] = useState(false)
+	let randomLastName = ""
 
 	const getData = () => {
 		Papa.parse(rawStudentData, {
@@ -38,21 +44,41 @@ export default function App() {
 		getData();
 	}, [])
 
+
 	const initializeSelectedStudents = (names) => {
 		let i = 1
 		const selectedStudents = []
 		names.forEach(name => {
-			const image = `https://robohash.org/${name}?set=set5`
+			const image = `https://robohash.org/${i}?set=set5`
+			const lastName = pickRandom(lastNames.data)
+			const email = generateEmail(name, lastName)
+			const phone = generatePhoneNumber()
+			const age = randomNumber(18, 55)
+			console.log("email", email)
 			const student = {
 				id: i,
 				name: name,
+				lastName: lastName,
 				isChecked: true,
-				image: image
+				image: image,
+				email: email,
+				phone: phone,
+				age: age
 			}
 			selectedStudents.push(student)
 			i++;
 		})
 		return selectedStudents
+	}
+
+
+	const handleSelectedChartTypeChange = (event) => {
+		const value = event.target.value
+		setSelectedChartType(value)
+	}
+
+	const handleSortingCheck = (event) => {
+		setSortingCheck(prevState => !prevState)
 	}
 
 
@@ -82,6 +108,9 @@ export default function App() {
 							<NavLink to="/students">Students</NavLink >
 						</li>
 						<li className="main-nav--list--item">
+							<NavLink to="/exercises">Exercises</NavLink >
+						</li>
+						<li className="main-nav--list--item">
 							<NavLink to="/about">About</NavLink >
 						</li>
 					</ul>
@@ -93,11 +122,21 @@ export default function App() {
 					<Route path="/students">
 						<AllStudents data={data} students={students} />
 					</Route>
+					<Route path="/exercises">
+						<AllExercises data={data} />
+					</Route>
 					<Route path="/about">
 						<AboutPage />
 					</Route>
 					<Route path="/">
-						<DashboardContainer data={data} students={students} handleCheckedStudent={handleCheckedStudent} />
+						<DashboardContainer
+							data={data}
+							students={students}
+							handleCheckedStudent={handleCheckedStudent}
+							handleSelectedChartTypeChange={handleSelectedChartTypeChange}
+							selectedChartType={selectedChartType}
+							handleSortingCheck={handleSortingCheck}
+							sortingCheck={sortingCheck} />
 					</Route>
 				</Switch>
 			</div>
