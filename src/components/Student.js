@@ -6,13 +6,14 @@ import {
 	useParams,
 	useRouteMatch
 } from "react-router-dom";
-import ChartComponent from "./ChartComponent";
+import BarChart from "./BarChart";
 
 function Student(props) {
 	const data = props.data
 	let { topicId } = useParams();
 	let name = topicId.charAt(0).toUpperCase() + topicId.slice(1);
 	const studentInfo = props.students.filter(student => student.name === name)[0]
+	console.log(studentInfo)
 
 	// filter data by value name, which is same as name
 	// use that data in the chartcomponent
@@ -25,13 +26,26 @@ function Student(props) {
 
 	const studentData = getStudentData(name);
 
-	return (
+	studentData.forEach(item => {
+		console.log(item.exercise)
+		if (item.exercise.length > 14) {
+			item.exercise = item.exercise.substring(0, 14)
+		}
+	})
 
-		<header className="Student">
-			<h1>{name}</h1>
-			{studentInfo && <img src={studentInfo.image} />}
-			<ChartComponent data={studentData} />
-		</header>
+	return (
+		<header className="Student" >
+			{ studentInfo && <div><h1>{name} {studentInfo.lastName}</h1><img src={studentInfo.image} /></div>}
+			{ studentInfo && <h2>Contact information: </h2>}
+			{
+				studentInfo && <p>
+					Email: {studentInfo.email} <br></br>
+				Phone: {studentInfo.phone}<br></br>
+				Age: {studentInfo.age}
+				</p>
+			}
+			<BarChart data={studentData} />
+		</header >
 	);
 }
 
