@@ -21,7 +21,7 @@ export default function App() {
 	const [data, setData] = useState([])
 	const [students, setStudents] = useState([])
 	const [selectedChartType, setSelectedChartType] = useState("bar")
-	const [sortingCheck, setSortingCheck] = useState(false)
+	const [sortingType, setSortingType] = useState("exercise")
 	let randomLastName = ""
 
 	const getData = () => {
@@ -77,8 +77,10 @@ export default function App() {
 		setSelectedChartType(value)
 	}
 
-	const handleSortingCheck = (event) => {
-		setSortingCheck(prevState => !prevState)
+	const handleSortingTypeChange = (event) => {
+		const value = event.target.value
+		console.log(value)
+		setSortingType(value)
 	}
 
 
@@ -135,8 +137,8 @@ export default function App() {
 							handleCheckedStudent={handleCheckedStudent}
 							handleSelectedChartTypeChange={handleSelectedChartTypeChange}
 							selectedChartType={selectedChartType}
-							handleSortingCheck={handleSortingCheck}
-							sortingCheck={sortingCheck} />
+							handleSortingTypeChange={handleSortingTypeChange}
+							sortingType={sortingType} />
 					</Route>
 				</Switch>
 			</div>

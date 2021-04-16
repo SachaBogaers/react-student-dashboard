@@ -50,6 +50,25 @@ function DashboardContainer(props) {
 	const averageData = getAverageData();
 	chartData = averageData
 
+	const sortData = (sortingData, sortingType) => {
+		const dataCopy = [...sortingData]
+		switch (sortingType) {
+			case "funLow":
+				return dataCopy.sort((a, b) => (a.enjoyedRating > b.enjoyedRating) ? 1 : ((b.enjoyedRating > a.enjoyedRating) ? -1 : 0))
+			case "funHigh":
+				return dataCopy.sort((a, b) => (a.enjoyedRating < b.enjoyedRating) ? 1 : ((b.enjoyedRating < a.enjoyedRating) ? -1 : 0))
+			case "difficultyLow":
+				return dataCopy.sort((a, b) => (a.difficultyRating > b.difficultyRating) ? 1 : ((b.difficultyRating > a.difficultyRating) ? -1 : 0))
+			case "difficultyHigh":
+				return dataCopy.sort((a, b) => (a.difficultyRating < b.difficultyRating) ? 1 : ((b.difficultyRating < a.difficultyRating) ? -1 : 0))
+			case "exercise":
+				return dataCopy.sort((a, b) => (a.exercise > b.exercise) ? 1 : ((b.exercise > a.exercise) ? -1 : 0))
+		}
+	}
+
+	const sortedData = sortData(averageData, props.sortingType)
+	chartData = sortedData
+
 
 	return (
 		<div className="DashboardContainer">
@@ -59,7 +78,16 @@ function DashboardContainer(props) {
 					return (<StudentCheckbox {...student} handleCheckedStudent={props.handleCheckedStudent} />)
 				})}
 			</form>
-			<Checkbox checked={props.sortingCheck} onChange={props.handleSortingCheck} /> Sort chart
+			<form>Sort data:
+				<select value={props.sortingType} onChange={props.handleSortingTypeChange}>
+					<option value="difficultyLow">By difficulty, lowest first</option>
+					<option value="difficultyHigh">By difficulty, highest first</option>
+					<option value="funLow">By fun rating, lowest first</option>
+					<option value="funHigh">By fun rating, highest first</option>
+					<option value="exercise">By exercise</option>
+				</select>
+			</form>
+
 			<form onChange={props.handleSelectedChartTypeChange}>
 				<input type="radio" id="barChart" name="chart" value="bar" checked={props.selectedChartType === "bar"} />
 				<label for="barChart">Bar chart</label>
