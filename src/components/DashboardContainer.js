@@ -13,24 +13,29 @@ function DashboardContainer(props) {
 	const students = props.students
 
 	const getAverageData = () => {
-		console.log("HALLO")
+		// Use only the selected students to generate the average data
 		const onlySelectedStudents = students.filter(student => student.isChecked)
-		console.log(onlySelectedStudents)
 		const selectedNames = onlySelectedStudents.map(student => student.name)
 		const selectedData = data.filter(item => selectedNames.includes(item.name))
 		const averageData = []
+		// Generate object with average ratings
 		exercises.forEach(exercise => {
 			const filteredData = selectedData.filter(item => item.exercise === exercise)
-			let averageDifficultyRating = Math.round((filteredData.reduce((r, c) => r + c.difficultyRating, 0) / filteredData.length) * 10) / 10
-			let averageEnjoyedRating = Math.round((filteredData.reduce((r, c) => r + c.enjoyedRating, 0) / filteredData.length) * 10) / 10
 			let label = exercise;
 			if (label.length > 14) {
 				label = label.substring(0, 14)
 			}
 			const exerciseData = {
-				exercise: label,
-				difficultyRating: averageDifficultyRating,
-				enjoyedRating: averageEnjoyedRating
+				exercise: label
+			}
+			// Only generate the average rating if checkbox for this rating has been checked
+			if (props.checkedRating.difficulty) {
+				let averageDifficultyRating = Math.round((filteredData.reduce((r, c) => r + c.difficultyRating, 0) / filteredData.length) * 10) / 10
+				exerciseData.difficultyRating = averageDifficultyRating
+			}
+			if (props.checkedRating.fun) {
+				let averageEnjoyedRating = Math.round((filteredData.reduce((r, c) => r + c.enjoyedRating, 0) / filteredData.length) * 10) / 10
+				exerciseData.enjoyedRating = averageEnjoyedRating
 			}
 			averageData.push(exerciseData)
 		})
@@ -38,8 +43,8 @@ function DashboardContainer(props) {
 	}
 
 	const averageData = getAverageData();
-	chartData = averageData
 
+	// Sort data based on the selected value
 	const sortData = (sortingData, sortingType) => {
 		const dataCopy = [...sortingData]
 		switch (sortingType) {
@@ -65,33 +70,35 @@ function DashboardContainer(props) {
 	return (
 		<div className="DashboardContainer">
 			<h1>Average ratings</h1>
-			<form>
-				{students.map(student => {
-					return (<StudentCheckbox {...student} handleCheckedStudent={props.handleCheckedStudent} key={student.name} />)
-				})}
-			</form>
-			<form>Show rating:
-				<Checkbox name="Difficulty" value="difficulty" />
-				<Checkbox name="Fun" value="fun" handleCheckedRating={props.handleCheckedRating} />
-			</form>
-			<form>Sort data:
+			<div className="dataSelectors">
+				<h2>Select how you want the data to be displayed</h2>
+				<form>
+					{students.map(student => {
+						return (<StudentCheckbox {...student} handleCheckedStudent={props.handleCheckedStudent} key={student.name} />)
+					})}
+				</form>
+				<form className="ratingSelector">Show rating:
+				<Checkbox name="Difficulty" value="difficulty" checkedRating={props.checkedRating} handleCheckedRating={props.handleCheckedRating} />
+					<Checkbox name="Fun" value="fun" checkedRating={props.checkedRating} handleCheckedRating={props.handleCheckedRating} />
+				</form>
+				<form>Sort data:
 				<select value={props.sortingType} onChange={props.handleSortingTypeChange}>
-					<option value="difficultyLow">By difficulty, lowest first</option>
-					<option value="difficultyHigh">By difficulty, highest first</option>
-					<option value="funLow">By fun rating, lowest first</option>
-					<option value="funHigh">By fun rating, highest first</option>
-					<option value="exercise">By exercise</option>
-				</select>
-			</form>
-
-			<form >
-				<input type="radio" id="barChart" name="chart" value="bar" checked={props.selectedChartType === "bar"} onChange={props.handleSelectedChartTypeChange} />
-				<label htmlFor="barChart">Bar chart</label>
-				<input type="radio" id="lineChart" name="chart" value="line" checked={props.selectedChartType === "line"} onChange={props.handleSelectedChartTypeChange} />
-				<label htmlFor="lineChart">Line chart</label>
-			</form>
-			{ props.selectedChartType === "bar" && <BarChart data={chartData} sortingCheck={props.sortingCheck} />}
-			{ props.selectedChartType === "line" && <LineChart data={chartData} sortingCheck={props.sortingCheck} />}
+						<option value="difficultyLow">By difficulty, lowest first</option>
+						<option value="difficultyHigh">By difficulty, highest first</option>
+						<option value="funLow">By fun rating, lowest first</option>
+						<option value="funHigh">By fun rating, highest first</option>
+						<option value="exercise">By exercise</option>
+					</select>
+				</form>
+				<form >
+					<input type="radio" id="barChart" name="chart" value="bar" checked={props.selectedChartType === "bar"} onChange={props.handleSelectedChartTypeChange} />
+					<label htmlFor="barChart">Bar chart</label>
+					<input type="radio" id="lineChart" name="chart" value="line" checked={props.selectedChartType === "line"} onChange={props.handleSelectedChartTypeChange} />
+					<label htmlFor="lineChart">Line chart</label>
+				</form>
+			</div>
+			{props.selectedChartType === "bar" && <BarChart data={chartData} sortingCheck={props.sortingCheck} />}
+			{props.selectedChartType === "line" && <LineChart data={chartData} sortingCheck={props.sortingCheck} />}
 		</div >
 	);
 
