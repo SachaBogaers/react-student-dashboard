@@ -1,5 +1,8 @@
 const Checkbox = props => (
-	<input type="checkbox" {...props} />
+	<span>
+		<input type="checkbox" {...props} />{props.name}
+	</span>
+
 )
 
 export default Checkbox

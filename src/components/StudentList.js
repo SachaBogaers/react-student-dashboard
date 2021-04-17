@@ -1,11 +1,6 @@
 import React from "react";
 import {
-	BrowserRouter as Router,
-	Switch,
-	Route,
 	Link,
-	useParams,
-	useRouteMatch
 } from "react-router-dom";
 
 function Studentlist(props) {
@@ -14,7 +9,7 @@ function Studentlist(props) {
 	return (
 		<ul className="studentList">
 			{names.map(name => {
-				return (<li>
+				return (<li key={name}>
 					<Link to={`${url}/${name.toLowerCase()}`} key={name}>{name}</Link>
 				</li>)
 			})}

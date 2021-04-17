@@ -1,23 +1,18 @@
 import React from "react";
 import {
-	BrowserRouter as Router,
 	Switch,
 	Route,
-	Link,
-	useParams,
 	useRouteMatch
 } from "react-router-dom";
 import Student from './Student'
 import StudentList from './StudentList'
-import { onlyUnique, getNames } from './utils'
+import { getNames } from './utils'
 
 
 function StudentsPage(props) {
 	const data = props.data
 	const names = getNames(data);
-	console.log("Student page names", names)
 	let { path, url } = useRouteMatch();
-	console.log("Students page")
 	return (
 		<main className="StudentsPage">
 			<h1>Students</h1>

@@ -1,17 +1,11 @@
 import React from "react";
 import {
-	BrowserRouter as Router,
-	Switch,
-	Route,
-	Link,
-	useParams,
-	useRouteMatch
+	Link
 } from "react-router-dom";
 
 function ExerciseList(props) {
 	const exercises = props.exercises
 	const url = props.url
-	console.log(url)
 	return (
 		<ul className="ExerciseList">
 			{exercises.map(exercise => {

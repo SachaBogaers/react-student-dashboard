@@ -1,25 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import {
-	BrowserRouter as Router,
 	Switch,
 	Route,
-	Link,
-	useParams,
 	useRouteMatch
 } from "react-router-dom";
 import ExerciseList from './ExerciseList'
 import Exercise from './Exercise'
 
-import { onlyUnique, getNames, getExercises } from './utils'
+import { getExercises } from './utils'
 
 
 function AllExercises(props) {
 	const data = props.data
 	const exercises = getExercises(data);
 	let { path, url } = useRouteMatch();
-
-
-
 
 	return (
 		<main className="AllExercises">

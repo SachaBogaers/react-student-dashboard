@@ -1,31 +1,23 @@
 
 import React from 'react'
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryLabel, VictoryGroup, VictoryTooltip } from 'victory';
 import BarChart from './BarChart';
 import LineChart from './LineChart'
-import { onlyUnique, getNames } from './utils'
+import { onlyUnique } from './utils'
 import StudentCheckbox from './StudentCheckbox'
-import Checkbox from './Checkbox'
-import Exercise from './Exercise'
+import Checkbox from './Checkbox';
 
 function DashboardContainer(props) {
 	const data = props.data
 	let chartData = data
 	const exercises = data.map(item => item.exercise).filter(onlyUnique)
-	const names = getNames(data)
 	const students = props.students
 
 	const getAverageData = () => {
-		const onlySelectedStudents = students.filter(student => {
-			if (student.isChecked) {
-				return student.name
-			}
-		})
+		console.log("HALLO")
+		const onlySelectedStudents = students.filter(student => student.isChecked)
+		console.log(onlySelectedStudents)
 		const selectedNames = onlySelectedStudents.map(student => student.name)
-		console.log(selectedNames.includes("Aranka"))
-		const selectedData = data.filter((item => {
-			return selectedNames.includes(item.name)
-		}))
+		const selectedData = data.filter(item => selectedNames.includes(item.name))
 		const averageData = []
 		exercises.forEach(exercise => {
 			const filteredData = selectedData.filter(item => item.exercise === exercise)
@@ -40,13 +32,10 @@ function DashboardContainer(props) {
 				difficultyRating: averageDifficultyRating,
 				enjoyedRating: averageEnjoyedRating
 			}
-			console.log(exerciseData)
 			averageData.push(exerciseData)
 		})
 		return averageData;
 	}
-
-	// Checkbox on change = handleSelectedStudentChange => that function should be used in the parent (router) to change the state
 
 	const averageData = getAverageData();
 	chartData = averageData
@@ -64,11 +53,12 @@ function DashboardContainer(props) {
 				return dataCopy.sort((a, b) => (a.difficultyRating < b.difficultyRating) ? 1 : ((b.difficultyRating < a.difficultyRating) ? -1 : 0))
 			case "exercise":
 				return dataCopy.sort((a, b) => (a.exercise > b.exercise) ? 1 : ((b.exercise > a.exercise) ? -1 : 0))
+			default:
+				return dataCopy;
 		}
 	}
 
 	const sortedData = sortData(averageData, props.sortingType)
-	console.log("Sorted", sortedData)
 	chartData = sortedData
 
 
@@ -77,8 +67,12 @@ function DashboardContainer(props) {
 			<h1>Average ratings</h1>
 			<form>
 				{students.map(student => {
-					return (<StudentCheckbox {...student} handleCheckedStudent={props.handleCheckedStudent} />)
+					return (<StudentCheckbox {...student} handleCheckedStudent={props.handleCheckedStudent} key={student.name} />)
 				})}
+			</form>
+			<form>Show rating:
+				<Checkbox name="Difficulty" value="difficulty" />
+				<Checkbox name="Fun" value="fun" handleCheckedRating={props.handleCheckedRating} />
 			</form>
 			<form>Sort data:
 				<select value={props.sortingType} onChange={props.handleSortingTypeChange}>
@@ -90,15 +84,15 @@ function DashboardContainer(props) {
 				</select>
 			</form>
 
-			<form onChange={props.handleSelectedChartTypeChange}>
-				<input type="radio" id="barChart" name="chart" value="bar" checked={props.selectedChartType === "bar"} />
-				<label for="barChart">Bar chart</label>
-				<input type="radio" id="lineChart" name="chart" value="line" checked={props.selectedChartType === "line"} />
-				<label for="lineChart">Line chart</label>
+			<form >
+				<input type="radio" id="barChart" name="chart" value="bar" checked={props.selectedChartType === "bar"} onChange={props.handleSelectedChartTypeChange} />
+				<label htmlFor="barChart">Bar chart</label>
+				<input type="radio" id="lineChart" name="chart" value="line" checked={props.selectedChartType === "line"} onChange={props.handleSelectedChartTypeChange} />
+				<label htmlFor="lineChart">Line chart</label>
 			</form>
-			{props.selectedChartType === "bar" && <BarChart data={chartData} sortingCheck={props.sortingCheck} />}
-			{props.selectedChartType === "line" && <LineChart data={chartData} sortingCheck={props.sortingCheck} />}
-		</div>
+			{ props.selectedChartType === "bar" && <BarChart data={chartData} sortingCheck={props.sortingCheck} />}
+			{ props.selectedChartType === "line" && <LineChart data={chartData} sortingCheck={props.sortingCheck} />}
+		</div >
 	);
 
 }

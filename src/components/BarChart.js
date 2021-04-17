@@ -1,16 +1,13 @@
-
 import React from 'react'
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryLabel, VictoryGroup, VictoryLegend } from 'victory';
-import { onlyUnique } from './utils'
 
-function ChartComponent(props) {
+function BarChart(props) {
 	const data = props.data
 	return (
 		<VictoryChart
 			className="VictoryChart"
 			domainPadding={5} style={{
 				parent: {
-					// border: "1px solid black",
 					height: "80vh",
 				}
 			}}
@@ -55,11 +52,8 @@ function ChartComponent(props) {
 				}
 				}
 				label="Exercise"
-				tickLabelComponent={<VictoryLabel angle={70} textAnchor={{ type: "start" }} verticalAnchor={{ type: "middle" }} />}
+				tickLabelComponent={<VictoryLabel angle={70} textAnchor="start" verticalAnchor="middle" />}
 			/>
-
-
-			{/* labels: { fontSize: ({ text }) => text.length > 10 ? 8 : 12 } */}
 			<VictoryAxis
 				dependentAxis
 				orientation="left"
@@ -73,4 +67,4 @@ function ChartComponent(props) {
 
 }
 
-export default ChartComponent;
+export default BarChart;

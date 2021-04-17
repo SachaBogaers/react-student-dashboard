@@ -1,7 +1,6 @@
 
 import React from 'react'
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryLabel, VictoryGroup, VictoryLegend } from 'victory';
-import { onlyUnique } from './utils'
 
 function ChartComponent(props) {
 	const data = props.data
