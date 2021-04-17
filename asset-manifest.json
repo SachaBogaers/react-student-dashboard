@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/sacha-bogaers-react-student-dashboard/static/css/main.09af0897.chunk.css",
+    "main.js": "/sacha-bogaers-react-student-dashboard/static/js/main.1d4b718c.chunk.js",
+    "main.js.map": "/sacha-bogaers-react-student-dashboard/static/js/main.1d4b718c.chunk.js.map",
+    "runtime-main.js": "/sacha-bogaers-react-student-dashboard/static/js/runtime-main.21ed2ead.js",
+    "runtime-main.js.map": "/sacha-bogaers-react-student-dashboard/static/js/runtime-main.21ed2ead.js.map",
+    "static/js/2.5dbf88ea.chunk.js": "/sacha-bogaers-react-student-dashboard/static/js/2.5dbf88ea.chunk.js",
+    "static/js/2.5dbf88ea.chunk.js.map": "/sacha-bogaers-react-student-dashboard/static/js/2.5dbf88ea.chunk.js.map",
+    "static/js/3.854c0504.chunk.js": "/sacha-bogaers-react-student-dashboard/static/js/3.854c0504.chunk.js",
+    "static/js/3.854c0504.chunk.js.map": "/sacha-bogaers-react-student-dashboard/static/js/3.854c0504.chunk.js.map",
+    "index.html": "/sacha-bogaers-react-student-dashboard/index.html",
+    "static/css/main.09af0897.chunk.css.map": "/sacha-bogaers-react-student-dashboard/static/css/main.09af0897.chunk.css.map",
+    "static/js/2.5dbf88ea.chunk.js.LICENSE.txt": "/sacha-bogaers-react-student-dashboard/static/js/2.5dbf88ea.chunk.js.LICENSE.txt",
+    "static/media/student_data.d31b6b20.csv": "/sacha-bogaers-react-student-dashboard/static/media/student_data.d31b6b20.csv"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.21ed2ead.js",
+    "static/js/2.5dbf88ea.chunk.js",
+    "static/css/main.09af0897.chunk.css",
+    "static/js/main.1d4b718c.chunk.js"
+  ]
+}
