@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
 	BrowserRouter as Router,
 	Switch,
@@ -15,24 +15,24 @@ import { onlyUnique, getNames, getExercises } from './utils'
 
 function AllExercises(props) {
 	const data = props.data
-	console.log(data)
 	const exercises = getExercises(data);
-	console.log("Exercises", exercises)
 	let { path, url } = useRouteMatch();
-	console.log("Students page")
+
+
+
+
 	return (
 		<main className="AllExercises">
 			<h1>Exercises</h1>
-			<h2>Select a student to see their profile and how they rated each exercise</h2>
-			<ExerciseList exercises={exercises} path={path} url={url} />
-
 			<Switch>
 				<Route path={`${path}/:topicId`}>
 					<Exercise
-						name={url}
 						data={data}
-						students={props.students}
 					/>
+				</Route>
+				<Route path={`${path}`}>
+					<h2>Select an exercise to see how it has been rated by each student</h2>
+					<ExerciseList exercises={exercises} path={path} url={url} />
 				</Route>
 			</Switch>
 		</main>

@@ -6,14 +6,17 @@ import {
 	useParams,
 	useRouteMatch
 } from "react-router-dom";
-import BarChart from "./BarChart";
+import ExerciseBarChart from "./ExerciseBarChart";
 
 function Exercise(props) {
 	const data = props.data
-	console.log("exercise", data)
-	// let { topicId } = useParams();
+	console.log("exercise", props)
+	let { topicId } = useParams();
+	let exercise = topicId;
+	console.log(exercise)
 	// let name = topicId.charAt(0).toUpperCase() + topicId.slice(1);
-	// const studentInfo = props.students.filter(student => student.name === name)[0]
+	const exerciseInfo = data.filter(rating => rating.exercise === exercise)
+	console.log("info", exerciseInfo)
 
 
 	// filter data by value name, which is same as name
@@ -30,8 +33,8 @@ function Exercise(props) {
 
 	return (
 		<header className="Exercise" >
-			<h1>This is Exercise</h1>
-			{/* <BarChart data={exerciseData} /> */}
+			<h1>{exercise}</h1>
+			<ExerciseBarChart data={exerciseInfo} />
 		</header >
 	);
 }

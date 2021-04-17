@@ -8,7 +8,7 @@ function ChartComponent(props) {
 	return (
 		<VictoryChart
 			className="VictoryChart"
-			domainPadding={5} style={{
+			domainPadding={15} style={{
 				parent: {
 					// border: "1px solid black",
 					height: "80vh",
@@ -27,17 +27,17 @@ function ChartComponent(props) {
 				]}
 			/>
 			<VictoryGroup
-				offset={3}
+				offset={12}
 			>
 				<VictoryBar
 					data={data}
-					x="exercise"
+					x="name"
 					y="enjoyedRating"
 					style={{ data: { fill: "#3E78B2" } }}
 				/>
 				<VictoryBar
 					data={data}
-					x="exercise"
+					x="name"
 					y="difficultyRating"
 					style={{ data: { fill: "#FF4A1C", } }}
 				/>
@@ -49,12 +49,12 @@ function ChartComponent(props) {
 						border: "1px solid black"
 					},
 					tickLabels: {
-						fontSize: ({ text }) => text.length > 10 ? 4 : 5,
+						fontSize: 7,
 						padding: 1
 					},
 				}
 				}
-				label="Exercise"
+				label="Student"
 				tickLabelComponent={<VictoryLabel angle={70} textAnchor={{ type: "start" }} verticalAnchor={{ type: "middle" }} />}
 			/>
 
