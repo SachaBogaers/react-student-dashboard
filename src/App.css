@@ -1,14 +1,25 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:regular,bold,italic&subset=latin,latin-ext');
+
+body {
+  margin: 0
+}
+
 .App {
   text-align: center;
+  min-height: 100%;
+  position: relative;
+  padding-bottom: 60px;
 }
-
 a {
   text-decoration: none;
-  color: black;
 }
 
-.router {
+
+
+.Router {
   text-align: center;
+  min-height: calc(100vh - 75px);
+  flex: 1 0 auto;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -17,21 +28,17 @@ a {
   }
 }
 
-.Header {
-  background-color: #282c34;
-  height: 100px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
 
 .MainNav {
-  display: flex;;
+  display: flex;
   background-color: #3E78B2;
+  font-family: 'Oswald', sans-serif;
+}
 
+.MainNav .logoImg {
+  height: 50px;
+  width: auto;
+  margin: 20px 5px 5px 15px;
 }
 
 .MainNav--list {
@@ -45,7 +52,9 @@ a {
 .MainNav--list--item a{
   color: #E3E6F2;
   margin-right: 30px;
+
 }
+
 
 
 
@@ -66,13 +75,17 @@ a {
   padding: 10px;
 }
 
+.studentList li a {
+  color: black;
+}
+
 .ExerciseList li {
   padding: 10px;
   background-color: #3E78B2;
   height: 100px;
   width: 100px;
   border-radius: 50%;
-
+margin-top: 15px;
 }
 
 .ExerciseList li a {
@@ -82,9 +95,11 @@ a {
   justify-content: center;
   height: 100px;
   width: 100px;
+  color: black;
 }
 
 /* About page */
+
 
 .aboutText {
   width: 60%;
@@ -92,6 +107,8 @@ a {
 }
 
 /* Student page */
+
+
 
 .Student {
   display: flex;
@@ -118,3 +135,14 @@ a {
 .VictoryContainer {
   margin-top: 25px;
 }
+
+/* Footer */
+.Footer {
+  width: 100%;
+  background-color: #E3E6F2;
+  position: absolute; 
+  left: 0 ; right: 0; bottom: 0; 
+  height: 60px;
+  margin-top: 15px;
+}
+
