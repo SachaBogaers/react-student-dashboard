@@ -60,6 +60,7 @@ export default function App() {
 	}
 
 
+
 	const handleCheckedStudent = (event) => {
 		// Find the student that was checked or unchecked in state and get index
 		const checkedStudent = students.find(student => student.name === event.target.value)
@@ -74,6 +75,20 @@ export default function App() {
 		setStudents(newCheckedStudents)
 	}
 
+	const [checkedRating, setCheckedRating] = useState({ difficulty: true, fun: true })
+
+
+	const handleCheckedRating = (event) => {
+		console.log("check!")
+		console.log(event.target.value)
+		const value = event.target.value
+		setCheckedRating(prevState => {
+			console.log("Joo", prevState)
+			const checked = !prevState[value]
+			console.log(checked)
+			return { ...prevState, [value]: checked }
+		})
+	}
 
 
 	return (
@@ -98,7 +113,10 @@ export default function App() {
 							handleSelectedChartTypeChange={handleSelectedChartTypeChange}
 							selectedChartType={selectedChartType}
 							handleSortingTypeChange={handleSortingTypeChange}
-							sortingType={sortingType} />
+							sortingType={sortingType}
+							handleCheckedRating={handleCheckedRating}
+							checkedRating={checkedRating}
+						/>
 					</Route>
 				</Switch>
 				<Footer />
