@@ -4,17 +4,16 @@ import React, { useEffect, useState } from "react";
 import {
 	BrowserRouter as Router,
 	Switch,
-	Route,
-	NavLink
+	Route
 } from "react-router-dom";
 import DashboardContainer from './DashboardContainer'
 import AboutPage from './AboutPage'
-import AllStudents from './AllStudents'
-import { onlyUnique, getNames, pickRandom, generateEmail, generatePhoneNumber, randomNumber } from './utils'
-import lastNames from './lastNames.json'
-import { Selection } from 'victory';
+import StudentsPage from './StudentsPage'
+import { getNames, initializeSelectedStudents } from './utils'
+
 import AllExercises from './AllExercises'
 import MainNav from './MainNav'
+import Footer from './Footer'
 
 export default function App() {
 
@@ -23,7 +22,6 @@ export default function App() {
 	const [students, setStudents] = useState([])
 	const [selectedChartType, setSelectedChartType] = useState("bar")
 	const [sortingType, setSortingType] = useState("exercise")
-	let randomLastName = ""
 
 	const getData = () => {
 		Papa.parse(rawStudentData, {
@@ -46,41 +44,18 @@ export default function App() {
 	}, [])
 
 
-	const initializeSelectedStudents = (names) => {
-		let i = 1
-		const selectedStudents = []
-		names.forEach(name => {
-			const image = `https://robohash.org/${i}?set=set5`
-			const lastName = pickRandom(lastNames.data)
-			const email = generateEmail(name, lastName)
-			const phone = generatePhoneNumber()
-			const age = randomNumber(18, 55)
-			console.log("email", email)
-			const student = {
-				id: i,
-				name: name,
-				lastName: lastName,
-				isChecked: true,
-				image: image,
-				email: email,
-				phone: phone,
-				age: age
-			}
-			selectedStudents.push(student)
-			i++;
-		})
-		return selectedStudents
-	}
+
 
 
 	const handleSelectedChartTypeChange = (event) => {
+		// Set chart type in state to the selected value
 		const value = event.target.value
 		setSelectedChartType(value)
 	}
 
 	const handleSortingTypeChange = (event) => {
+		// Set sorting type in state to the selected value
 		const value = event.target.value
-		console.log(value)
 		setSortingType(value)
 	}
 
@@ -99,16 +74,15 @@ export default function App() {
 		setStudents(newCheckedStudents)
 	}
 
+
+
 	return (
 		<Router>
-			<div className="router">
+			<div className="Router">
 				<MainNav />
-
-				{/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
 				<Switch>
 					<Route path="/students">
-						<AllStudents data={data} students={students} />
+						<StudentsPage data={data} students={students} />
 					</Route>
 					<Route path="/exercises">
 						<AllExercises data={data} />
@@ -127,6 +101,7 @@ export default function App() {
 							sortingType={sortingType} />
 					</Route>
 				</Switch>
+				<Footer />
 			</div>
 		</Router>
 	);
