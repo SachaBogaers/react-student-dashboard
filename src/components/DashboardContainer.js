@@ -29,8 +29,8 @@ function DashboardContainer(props) {
 		const averageData = []
 		exercises.forEach(exercise => {
 			const filteredData = selectedData.filter(item => item.exercise === exercise)
-			let averageDifficultyRating = filteredData.reduce((r, c) => r + c.difficultyRating, 0) / filteredData.length
-			let averageEnjoyedRating = filteredData.reduce((r, c) => r + c.enjoyedRating, 0) / filteredData.length
+			let averageDifficultyRating = Math.round((filteredData.reduce((r, c) => r + c.difficultyRating, 0) / filteredData.length) * 10) / 10
+			let averageEnjoyedRating = Math.round((filteredData.reduce((r, c) => r + c.enjoyedRating, 0) / filteredData.length) * 10) / 10
 			let label = exercise;
 			if (label.length > 14) {
 				label = label.substring(0, 14)
@@ -40,6 +40,7 @@ function DashboardContainer(props) {
 				difficultyRating: averageDifficultyRating,
 				enjoyedRating: averageEnjoyedRating
 			}
+			console.log(exerciseData)
 			averageData.push(exerciseData)
 		})
 		return averageData;
@@ -67,6 +68,7 @@ function DashboardContainer(props) {
 	}
 
 	const sortedData = sortData(averageData, props.sortingType)
+	console.log("Sorted", sortedData)
 	chartData = sortedData
 
 

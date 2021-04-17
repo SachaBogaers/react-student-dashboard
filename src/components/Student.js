@@ -34,18 +34,17 @@ function Student(props) {
 	})
 
 	return (
-		<header className="Student" >
-			{ studentInfo && <div><h1>{name} {studentInfo.lastName}</h1><img src={studentInfo.image} /></div>}
-			{ studentInfo && <h2>Contact information: </h2>}
-			{
-				studentInfo && <p>
+		<div className="Student" >
+			{ studentInfo && <div className="studentNameImg"><h1>{name} {studentInfo.lastName}</h1><img src={studentInfo.image} /></div>}
+			{ studentInfo && <div className="studentContactInfo"><h2>About {name}: </h2>
+				<p>
 					Email: {studentInfo.email} <br></br>
 				Phone: {studentInfo.phone}<br></br>
 				Age: {studentInfo.age}
 				</p>
-			}
+			</div>}
 			<BarChart data={studentData} />
-		</header >
+		</div >
 	);
 }
 

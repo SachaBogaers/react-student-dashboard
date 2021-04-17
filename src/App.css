@@ -28,13 +28,13 @@ a {
   color: white;
 }
 
-.main-nav {
+.MainNav {
   display: flex;;
   background-color: #3E78B2;
 
 }
 
-.main-nav--list {
+.MainNav--list {
   width: 100%;
   display: flex;
   justify-content: flex-end;
@@ -42,7 +42,7 @@ a {
   list-style: none;
 }
 
-.main-nav--list--item a{
+.MainNav--list--item a{
   color: #E3E6F2;
   margin-right: 30px;
 }
@@ -53,12 +53,9 @@ a {
   text-align: center;
 }
 
-/* .VictoryChart {
-  margin-left: 100px
-} */
 
-
-.studentList {
+.studentList,
+.ExerciseList {
   display: flex;
   list-style: none;
   flex-wrap: wrap;
@@ -67,4 +64,57 @@ a {
 
 .studentList li {
   padding: 10px;
+}
+
+.ExerciseList li {
+  padding: 10px;
+  background-color: #3E78B2;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+
+}
+
+.ExerciseList li a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  width: 100px;
+}
+
+/* About page */
+
+.aboutText {
+  width: 60%;
+  margin: 0 auto;
+}
+
+/* Student page */
+
+.Student {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.studentNameImg,
+.studentContactInfo {
+  width: 50%;
+}
+
+.studentContactInfo {
+  margin-top: 90px;
+  background-color: #E3E6F2;
+  padding-top: 30px;
+  border-radius: 10%;
+  height: 200px;
+  width: 350px;
+  /* display: flex;
+  flex-direction: row;
+  align-items: center; */
+}
+
+.VictoryContainer {
+  margin-top: 25px;
 }
