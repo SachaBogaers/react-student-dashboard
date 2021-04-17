@@ -14,6 +14,9 @@ function Student(props) {
 	}
 
 	const studentData = getStudentData(name);
+	console.log(studentData)
+	let averageDifficultyRating = Math.round((studentData.reduce((r, c) => r + c.difficultyRating, 0) / studentData.length) * 10) / 10
+	let averageEnjoyedRating = Math.round((studentData.reduce((r, c) => r + c.enjoyedRating, 0) / studentData.length) * 10) / 10
 	studentData.forEach(item => {
 		if (item.exercise.length > 14) {
 			item.exercise = item.exercise.substring(0, 14)
@@ -27,7 +30,9 @@ function Student(props) {
 				<p>
 					Email: {studentInfo.email} <br></br>
 				Phone: {studentInfo.phone}<br></br>
-				Age: {studentInfo.age}
+				Age: {studentInfo.age}<br></br>
+				Average difficulty rating: {averageDifficultyRating}<br></br>
+				Average fun rating: {averageEnjoyedRating}
 				</p>
 			</div>}
 			<BarChart data={studentData} />
