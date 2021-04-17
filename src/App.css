@@ -61,11 +61,21 @@ a {
 
 }
 
-
-
-
+/* Home page */
 .DashboardContainer {
   text-align: center;
+}
+
+.DashboardContainer form {
+  margin-top: 10px;
+}
+
+.dataSelectors {
+  background-color: #E3E6F2;
+  width: 80%;
+  margin: 0 auto;
+  padding: 10px;
+border-radius: 10%;
 }
 
 
@@ -114,17 +124,17 @@ margin-top: 15px;
 
 /* Student page */
 
-
-
 .Student {
   display: flex;
   flex-wrap: wrap;
+  margin-left: 50px;
 }
 
 .studentNameImg,
 .studentContactInfo {
   width: 50%;
 }
+
 
 .studentContactInfo {
   margin-top: 90px;
