@@ -1,9 +1,12 @@
 import './App.css';
 import Router from './components/Router'
-
+import Footer from './components/Footer'
 function App() {
   return (
-    <Router />
+    <div className="App">
+      <Router />
+
+    </div>
   );
 }
 
