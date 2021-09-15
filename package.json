@@ -1,6 +1,6 @@
 {
   "name": "student-dashboard",
-  "homepage": "http://sachabogaers.github.io/sacha-bogaers-react-student-dashboard",
+  "homepage": "http://sachabogaers.github.io/react-student-dashboard",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
